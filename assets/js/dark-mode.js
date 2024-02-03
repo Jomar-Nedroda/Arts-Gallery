@@ -4,11 +4,34 @@ let isDarkMode = getMode();
 
 window.addEventListener("load", () => {
   saveMode(isDarkMode);
+  blendMode(isDarkMode);
 });
 
 DARK_MODE.addEventListener("click", () => {
   setModeButton();
+  blendMode(isDarkMode);
 });
+
+function blendMode(mode) {
+  if (mode) {
+    document.querySelector("article#contact > div.left-content > img").style =
+      "mix-blend-mode: normal; border-radius: 50%; box-shadow: 0 1px 75px 1px white;";
+
+    document
+      .querySelectorAll("article#prices > div.slider > figure > img")
+      .forEach((item) => {
+        item.style = "mix-blend-mode: normal;";
+      });
+  } else {
+    document.querySelector("article#contact > div.left-content > img").style =
+      "mix-blend-mode: multiply; border-radius: 0; box-shadow: none;";
+    document
+      .querySelectorAll("article#prices > div.slider > figure > img")
+      .forEach((item) => {
+        item.style = "mix-blend-mode: multiply;";
+      });
+  }
+}
 
 function saveMode(darkMode) {
   localStorage.setItem("dark-mode", JSON.stringify(darkMode));
